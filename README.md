@@ -3,7 +3,7 @@
 This repository contains the code used to process and analyze data from our molecular fluorescence experiment. Specifically, this project investigates the breakdown of the Beer-Lambert law at high concentrations due to the Inner Filter Effect (IFE). The code is open-source.
 
 ## fluorescence_analysis_P1.py:
-It contains the data pfor the first part of the experiment. This script analyzes the relationship between fluorophore concentration and normalized emission intensity.
+It contains the data pfor the first part of the experiment. This script analyzes the relationship between fluorophore concentration and normalized fluorescence intensity.
 
 ### Usage Instructions
 
