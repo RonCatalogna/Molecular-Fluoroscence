@@ -94,14 +94,41 @@ The script performs:
 * `Distance_1e_cm`
 * `Alpha_cm_inv`
 
-## Requirements
+### Requirements
 * `numpy`
 * `pandas`
 * `matplotlib`
 * `scipy`
 
-## Usage
+### Usage
 1. Place your data images in the working directory.
 2. Ensure your Excel datasheet (`RESULTS_MF_PT2_DATASHEET.xlsx`) is configured with the required columns.
 3. Run the script: `python fluorescence_analysis.py`.
 4. Follow the interactive prompts to calibrate and select ROIs for each image.
+
+---
+
+## fluorescence_Final_Results_P2.py:
+
+This script performs linear regression on fluorescence data to analyze the relationship between concentration and the attenuation coefficient ($\alpha$).
+
+---
+
+### Key Features
+
+* **Linear Fitting:** Automatically calculates the best-fit line ($y = mx + b$) for each **Fluorophore**.
+* **Statistical Validation:** Computes and displays the $R^2$ coefficient for each **Fluorophore** directly in the legend.
+* **Professional Visualization:** Generates clean, publication-ready plots with custom markers, colors, and gridlines.
+* **Data Handling:** Processes Excel datasets using `pandas`, handling missing values and header cleanup automatically.
+
+---
+
+### Usage
+
+1. **Prepare:** Ensure `RESULTS_MF_PT2_DATASHEET.xlsx` is in the folder with columns: `Fluorophore`, `Concentration IDX`, and `Alpha [cm^-1]`.
+2. **Run:** Execute the script: `python linear_fit_analysis.py`.
+3. **Output:** A graph displays the linear trends, with $R^2$ values indicated in the legend for each **Fluorophore**.
+
+---
+
+*Requirements: `pandas`, `numpy`, `matplotlib`, `openpyxl`.*
