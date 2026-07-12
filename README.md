@@ -48,7 +48,8 @@ Data Columns: In every sheet, the first two columns (A and B) must contain the W
 
 Exposure Time: Each sheet must contain the measurement's exposure time saved in cell  C2. The code can be changed to save it in any other consistent cell- except for cells in columns A & B. The value in this cell is crucial for normalizing the intensity across different measurements. 
 
-2. **Configuration:** * Update the `files` dictionary with your specific filenames.
+2. **Configuration:**
+* Update the `files` dictionary with your specific filenames.
 * Use the `rejected_points` dictionary to flag any anomalous data points that should not be included.
 
 Since the acquired data is discrete, standard analytical integration cannot be applied. Instead, the total fluorescence signal was calculated by numerical integration using the trapezoidal rule. This algorithm connects consecutive discrete measurement points with straight lines and sums the area of the resulting trapezoids. This method provides a highly reliable calculation of the total emission without making artificial assumptions about the underlying continuous function.
