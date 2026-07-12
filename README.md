@@ -29,4 +29,49 @@ Run the program and wait for a short processing time, the script will output a g
 
 The visualization will display the normalized experimental data points overlaid with a physically accurate, smooth trendline generated using Akima1DInterpolator.
 
+## fluorescence_analysis_P2.py:
 
+This repository contains a robust Python automation tool designed to analyze fluorescence intensity profiles from experimental imaging data. The tool calculates the attenuation coefficient ($\alpha$) for various fluorophores across multiple concentrations by performing spatial calibration and intensity decay analysis.
+
+### Features
+
+* **Interactive Calibration:** Automatically calculates pixel-to-cm scale factors based on user-defined reference points.
+* **Automated ROI Processing:** Extracts intensity profiles along a specified beam path, averaging across a defined window to minimize noise.
+* **Physics-Based Analysis:** Calculates the $1/e$ decay length and the attenuation coefficient ($\alpha$) based on the Beer-Lambert law.
+* **Verification Workflow:** Generates side-by-side visual confirmations for every processed image, overlaying calculated peak and decay points directly onto the intensity map.
+* **Batch Processing:** Iterates through folders of image files, organizing results into a structured dataset for final analysis.
+
+### Workflow
+
+### 1. Inputs
+* **Images:** A set of `.jpg` files named by material and concentration (e.g., `FE (1).jpg`).
+* **User Interaction:**
+* **Step 1:** Select two points on the container to define the 10 cm reference length.
+* **Step 2:** Select two points to define the Region of Interest (ROI) along the fluorescence beam.
+
+### 2. Processing
+The script performs:
+1. **Spatial Mapping:** Translates pixel coordinates to physical distances.
+2. **Signal Extraction:** Calculates the average intensity profile within the ROI.
+3. **Decay Analysis:** Locates the peak intensity ($I_0$) and determines the distance at which intensity drops to $I_0/e$.
+4. **Parameter Calculation:** Derives $\alpha$ (in $\text{cm}^{-1}$) using the relationship $\alpha = 1/x_{1/e}$.
+
+### 3. Outputs
+* **Visual Verification:** A generated report for each image displaying the intensity profile graph and the mapped intensity spectrum image with marked data points.
+* **Numerical Results:** A console-printed summary and an integrated dataframe containing:
+* `Material`
+* `Concentration Index`
+* `Distance_1e_cm`
+* `Alpha_cm_inv`
+
+## Requirements
+* `numpy`
+* `pandas`
+* `matplotlib`
+* `scipy`
+
+## Usage
+1. Place your data images in the working directory.
+2. Ensure your Excel datasheet (`RESULTS_MF_PT2_DATASHEET.xlsx`) is configured with the required columns.
+3. Run the script: `python fluorescence_analysis.py`.
+4. Follow the interactive prompts to calibrate and select ROIs for each image.
