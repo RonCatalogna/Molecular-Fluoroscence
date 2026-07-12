@@ -1,33 +1,62 @@
 # Molecular Fluorescence Code Repository
 
 This repository contains the code used to process and analyze data from our molecular fluorescence experiment. Specifically, this project investigates the breakdown of the Beer-Lambert law at high concentrations due to the Inner Filter Effect (IFE). The code is open-source.
+---
+
 
 ## fluorescence_analysis_P1.py:
-It contains the data for the first part of the experiment. This script analyzes the relationship between fluorophore concentration and normalized fluorescence intensity.
+It contains the data for the first part of the experiment. This script analyzes the relationship between fluorophore concentration and normalized fluorescence intensity. The script automates the integration of spectral data, normalizes by exposure time and generates publication-quality plots comparing fluorescence intensity vs concentration for various fluorophores.
 
-### Usage Instructions
+---
 
-Data Formatting Requirements: To run the script successfully, your raw data must be organized in a specific format:
+### Core Features
 
-#### File Structure:
+* **Automated Data Processing:** Parses multiple Excel files containing spectral data, normalizes raw intensity signals by exposure time, and integrates spectral peaks using the Trapezoidal rule.
+* **Intelligent Filtering:** Automatically cleans noisy data and applies spectral masking to focus on the relevant fluorescence emission range.
+* **Advanced Visualization:** * **Akima Interpolation:** Uses Akima splines to create smooth, accurate curves between experimental data points.
+* **Custom Styling:** Automatically applies specific color schemes, markers, and line styles based on the material type.
+
+
+* **Data Quality Control:** Allows manual rejection of specific data points, visually highlighting them as outliers in the final plot.
+
+---
+
+### Workflow
+
+1. **Initialization:** Defines a dictionary of source files and mapping configurations for each material (Fluorescein, Rhodamine B, Rhodamine 6G).
+2. **Spectral Integration:** The `integrating_data` function calculates the area under the curve for each spectrum, normalized by the exposure time retrieved from the file data.
+3. **Data Fitting:** Applies Akima interpolation to the filtered experimental data to create smooth continuous curves.
+4. **Plotting:** the intensity-vs-concentration curves, combining experimental markers with the interpolated trend lines.
+
+---
+
+### Requirements
+
+To run this script, ensure you have the following dependencies installed:
+
+`pip install pandas numpy matplotlib scipy openpyxl`
+
+---
+
+### Usage
+
+1. **Prepare your data:** Data Formatting Requirements:
+To run the script successfully, your raw data must be organized in a specific format:
 Provide three distinct Excel (.xlsx) files, one for each fluorescent material.
-
 Sheet Naming: Within each file, create a separate sheet for every measured concentration. The sheet name must be the numerical value of that concentration.
-
 Data Columns: In every sheet, the first two columns (A and B) must contain the Wavelength and Intensity data, respectively.
 
 Exposure Time: Each sheet must contain the measurement's exposure time saved in cell  C2. The code can be changed to save it in any other consistent cell- except for cells in columns A & B. The value in this cell is crucial for normalizing the intensity across different measurements. 
 
+2. **Configuration:** * Update the `files` dictionary with your specific filenames.
+* Use the `rejected_points` dictionary to flag any anomalous data points that should not be included.
 
 Since the acquired data is discrete, standard analytical integration cannot be applied. Instead, the total fluorescence signal was calculated by numerical integration using the trapezoidal rule. This algorithm connects consecutive discrete measurement points with straight lines and sums the area of the resulting trapezoids. This method provides a highly reliable calculation of the total emission without making artificial assumptions about the underlying continuous function.
 Following the calculation of the integrated area for each sample, the discrete data points were plotted. To accurately illustrate the continuous trend between these discrete measurements, Akima 1D interpolation was utilized rather than a classical Cubic Spline. Standard global splines optimize for overall curve smoothness. Consequently, fitting regions with abrupt trend changes often produces non physical overshoots or oscillations. The Akima algorithm, which is a local spline, calculates the curve based only on a localized neighborhood of data points. This ensures that the fitted curve remains strictly close to the experimental measurements, accurately representing the physical saturation and subsequent decay without introducing unjustified mathematical fluctuations.
 
 ### Execution and Output
 Once your data is formatted and the file paths are updated in the configuration section:
-
-Run the program and wait for a short processing time, the script will output a graph for all three fluorophores (Normalized Intensity VS Fluorophore Concentration).
-
-The visualization will display the normalized experimental data points overlaid with a physically accurate, smooth trendline generated using Akima1DInterpolator.
+Run the program and wait for a short processing time, the script will output a graph for all three fluorophores (Normalized Intensity VS Fluorophore Concentration). Overall: the visualization will display the normalized experimental data points overlaid with a physically accurate, smooth trendline generated using Akima1DInterpolator.
 
 ## fluorescence_analysis_P2.py:
 
